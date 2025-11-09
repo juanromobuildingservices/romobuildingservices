@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Romo Building Services — Junk Removal Quote</title>
+  <!-- Tailwind CSS CDN for quick styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="description" content="Get a fast junk removal quote from Romo Building Services. Upload photos and tell us about your job—reply within 24 hours." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --brand:#0f766e; }
+    html { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+    .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,0.7); }
+    .dropzone.dragover { border-color: #0f766e; background: #ecfdf5; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-white to-emerald-50 text-slate-800">
+  <!-- Header / Brand -->
+  <header class="sticky top-0 z-30 bg-white/70 glass border-b border-slate-200/70">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-xl bg-teal-700 grid place-items-center text-white font-bold">R</div>
+        <div>
+          <h1 class="text-lg font-semibold leading-tight">Romo Building Services</h1>
+          <p class="text-xs text-slate-500 -mt-0.5">Junk & Debris Removal</p>
+        </div>
+      </div>
+      <a href="#quote" class="hidden sm:inline-flex px-4 py-2 rounded-xl bg-teal-700 text-white hover:bg-teal-800 transition">Get a Quote</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div class="max-w-6xl mx-auto px-4 py-14 sm:py-20 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h2 class="text-3xl sm:text-5xl font-bold tracking-tight">
+          Fast junk removal quotes—<span class="text-teal-700">reply in 24 hours</span>
+        </h2>
+        <p class="mt-4 text-slate-600 text-lg">Upload photos, tell us what needs to go, and we’ll send a tailored quote within one business day.</p>
+        <ul class="mt-6 grid gap-2 text-sm text-slate-700">
+          <li class="flex items-start gap-2"><span class="mt-1 h-5 w-5 rounded-full bg-teal-100 text-teal-700 grid place-items-center">✓</span> Curbside, garage, job‑site, and property cleanouts</li>
+          <li class="flex items-start gap-2"><span class="mt-1 h-5 w-5 rounded-full bg-teal-100 text-teal-700 grid place-items-center">✓</span> Photos help us quote accurately—multiple uploads allowed</li>
+          <li class="flex items-start gap-2"><span class="mt-1 h-5 w-5 rounded-full bg-teal-100 text-teal-700 grid place-items-center">✓</span> Licensed • Insured • Professional crews</li>
+        </ul>
+        <a href="#quote" class="mt-8 inline-flex px-5 py-3 rounded-xl bg-teal-700 text-white hover:bg-teal-800 transition">Request Your Quote</a>
+      </div>
+      <div class="relative order-first md:order-last">
+        <div class="rounded-2xl overflow-hidden shadow-2xl border border-slate-200 bg-white">
+          <img src="./crew.jpg" alt="Crew loading debris into a truck" class="w-full h-72 object-cover"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote Form -->
+  <section id="quote" class="py-12 sm:py-16">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-10">
+        <h3 class="text-2xl font-semibold">Request a Junk Removal Quote</h3>
+        <p class="text-slate-600 mt-1">We’ll review your details and reply within 24 hours.</p>
+
+        <form id="quote-form" class="mt-8 grid gap-6" enctype="multipart/form-data" novalidate>
+          <!-- Replace FORM_ENDPOINT with your backend endpoint (e.g., Formspree, Make, Zapier, or your API). -->
+          <!-- Example (Formspree): set data-endpoint="https://formspree.io/f/yourid" below. -->
+
+          <!-- Contact Info -->
+          <div class="grid sm:grid-cols-3 gap-4">
+            <div class="col-span-1">
+              <label class="block text-sm font-medium">Full Name</label>
+              <input name="name" required class="mt-2 w-full rounded-xl border-slate-300 focus:border-teal-600 focus:ring-teal-600" placeholder="Jane Doe" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium">Email</label>
+              <input name="email" type="email" required class="mt-2 w-full rounded-xl border-slate-300 focus:border-teal-600 focus:ring-teal-600" placeholder="you@example.com" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium">Phone</label>
+              <input name="phone" type="tel" required class="mt-2 w-full rounded-xl border-slate-300 focus:border-teal-600 focus:ring-teal-600" placeholder="(555) 555‑5555" />
+            </div>
+          </div>
+
+          <!-- Job Details -->
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium">Service Address</label>
+              <input name="address" required class="mt-2 w-full rounded-xl border-slate-300 focus:border-teal-600 focus:ring-teal-600" placeholder="123 Main St, City, ST" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium">Preferred Service Date</label>
+              <input name="preferred_date" type="date" class="mt-2 w-full rounded-xl border-slate-300 focus:border-teal-600 focus:ring-teal-600" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium">Describe what needs to go</label>
+            <textarea name="description" rows="4" required class="mt-2 w-full rounded-xl border-slate-300 focus:border-teal-600 focus:ring-teal-600" placeholder="e.g., old couch, construction debris, yard waste. Any stairs or access notes?" ></textarea>
+          </div>
+
+          <!-- Photos -->
+          <div>
+            <label class="block text-sm font-medium">Upload Photos (up to 8 images, 10MB each)</label>
+            <div id="dropzone" class="dropzone mt-2 flex flex-col items-center justify-center gap-2 border-2 border-dashed border-slate-300 rounded-2xl p-8 text-center cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 16.5V8.25A2.25 2.25 0 015.25 6h8.25M3 16.5A2.25 2.25 0 005.25 18.75H15M3 16.5l3-3m0 0l3 3m-3-3v9M21 8.25v7.5A2.25 2.25 0 0118.75 18H15"/></svg>
+              <p class="text-sm text-slate-600">Drag & drop or click to select</p>
+              <input id="photos" name="photos" type="file" accept="image/*" multiple class="hidden" />
+            </div>
+            <div id="preview" class="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-3"></div>
+            <p class="mt-2 text-xs text-slate-500">Tip: Add multiple angles for the most accurate estimate.</p>
+          </div>
+
+          <!-- Privacy & Honeypot -->
+          <input type="text" name="company" class="hidden" autocomplete="off" tabindex="-1" aria-hidden="true" />
+          <div class="flex items-start gap-3">
+            <input id="consent" type="checkbox" required class="mt-1 rounded border-slate-300 text-teal-700 focus:ring-teal-600" />
+            <label for="consent" class="text-sm text-slate-700">I understand Romo Building Services will contact me within 24 hours.</label>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center gap-4">
+            <button type="submit" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-medium">
+              <span>Submit Request</span>
+            </button>
+            <p id="form-note" class="text-sm text-slate-500">Average reply time: under 24 hours</p>
+          </div>
+
+          <div id="form-alert" class="hidden mt-4 p-3 rounded-xl text-sm"></div>
+        </form>
+
+        <p class="mt-8 text-xs text-slate-500">By submitting, you agree that we may contact you about your request. We never share your photos or details without permission.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-10">
+    <div class="max-w-6xl mx-auto px-4 text-center text-sm text-slate-500">
+      © <span id="year"></span> Romo Building Services. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    const ENDPOINT = null; // e.g., "https://formspree.io/f/abcdwxyz"
+
+    const form = document.getElementById('quote-form');
+    const alertBox = document.getElementById('form-alert');
+    const note = document.getElementById('form-note');
+    const photosInput = document.getElementById('photos');
+    const preview = document.getElementById('preview');
+    const dropzone = document.getElementById('dropzone');
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Drag & drop handling
+    dropzone.addEventListener('click', () => photosInput.click());
+    ['dragenter','dragover'].forEach(evt => dropzone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropzone.classList.add('dragover'); }));
+    ['dragleave','drop'].forEach(evt => dropzone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropzone.classList.remove('dragover'); }));
+    dropzone.addEventListener('drop', e => {
+      const files = Array.from(e.dataTransfer.files || []);
+      if (!files.length) return;
+      const dt = new DataTransfer();
+      const current = Array.from(photosInput.files);
+      [...current, ...files].slice(0,8).forEach(f => dt.items.add(f));
+      photosInput.files = dt.files;
+      renderPreviews();
+    });
+
+    photosInput.addEventListener('change', renderPreviews);
+
+    function renderPreviews(){
+      preview.innerHTML = '';
+      const files = Array.from(photosInput.files);
+      const maxFiles = 8; const maxMB = 10;
+      let valid = true;
+      files.slice(0,maxFiles).forEach((file, idx) => {
+        if (file.size > maxMB * 1024 * 1024) valid = false;
+        const url = URL.createObjectURL(file);
+        const tile = document.createElement('div');
+        tile.className = 'relative rounded-xl overflow-hidden border border-slate-200';
+        tile.innerHTML = `<img class="w-full h-28 object-cover" src="${url}" alt="Upload ${idx+1}">`;
+        preview.appendChild(tile);
+      });
+      if (!valid) showAlert('One or more images exceed 10MB. Please compress and try again.', 'error');
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Honeypot check
+      if (form.company && form.company.value) return;
+
+      const required = ['name','email','phone','address','description'];
+      for (const key of required) {
+        const el = form.elements[key];
+        if (!el || !el.value.trim()) {
+          showAlert('Please complete all required fields.', 'error');
+          return;
+        }
+      }
+      const consent = document.getElementById('consent');
+      if (!consent.checked) {
+        showAlert('Please check the box to continue.', 'error');
+        return;
+      }
+
+      note.textContent = 'Submitting…';
+
+      const fd = new FormData(form);
+      fd.append('_subject', 'New Junk Removal Quote Request');
+
+      try {
+        if (!ENDPOINT) {
+          // Demo mode
+          await new Promise(r => setTimeout(r, 600));
+          showAlert('Submitted! We\'ll be in touch within 24 hours. (Demo mode—connect a real endpoint.)', 'success');
+          form.reset(); preview.innerHTML = ''; note.textContent = 'Average reply time: under 24 hours';
+          return;
+        }
+        const res = await fetch(ENDPOINT, { method: 'POST', body: fd });
+        if (!res.ok) throw new Error('Network error');
+        showAlert('Thanks! Your request has been received. We\'ll reply within 24 hours.', 'success');
+        form.reset(); preview.innerHTML = ''; note.textContent = 'Average reply time: under 24 hours';
+      } catch(err){
+        showAlert('Something went wrong. Please try again or call us directly.', 'error');
+        note.textContent = 'Average reply time: under 24 hours';
+      }
+    });
+
+    function showAlert(msg, type='info'){
+      alertBox.classList.remove('hidden');
+      alertBox.textContent = msg;
+      alertBox.className = 'mt-4 p-3 rounded-xl text-sm ' + (type==='success' ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : type==='error' ? 'bg-rose-50 text-rose-700 border border-rose-200' : 'bg-slate-50 text-slate-700 border border-slate-200');
+    }
+  </script>
+</body>
+</html>
