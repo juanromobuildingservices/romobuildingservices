@@ -216,7 +216,12 @@
           form.reset(); preview.innerHTML = ''; note.textContent = 'Average reply time: under 24 hours';
           return;
         }
-        const res = await fetch(ENDPOINT, { method: 'POST', body: fd });
+        const res = await fetch(ENDPOINT, {
+  method: 'POST',
+  body: fd,
+  headers: { 'Accept': 'application/json' }
+});
+
         if (!res.ok) throw new Error('Network error');
         showAlert('Thanks! Your request has been received. We\'ll reply within 24 hours.', 'success');
         form.reset(); preview.innerHTML = ''; note.textContent = 'Average reply time: under 24 hours';
@@ -234,4 +239,5 @@
   </script>
 </body>
 </html>
+
 
