@@ -140,104 +140,114 @@
     </div>
   </footer>
 
-  <script>
-    const ENDPOINT = "https://formspree.io/f/mjkjbozv" 
-    const form = document.getElementById('quote-form');
-    const alertBox = document.getElementById('form-alert');
-    const note = document.getElementById('form-note');
-    const photosInput = document.getElementById('photos');
-    const preview = document.getElementById('preview');
-    const dropzone = document.getElementById('dropzone');
+<script>
+  const ENDPOINT = "https://formspree.io/f/mjkjbozv"; // your live Formspree endpoint
 
-    document.getElementById('year').textContent = new Date().getFullYear();
+  const form = document.getElementById('quote-form');
+  const alertBox = document.getElementById('form-alert');
+  const note = document.getElementById('form-note');
+  const photosInput = document.getElementById('photos');
+  const preview = document.getElementById('preview');
+  const dropzone = document.getElementById('dropzone');
 
-    // Drag & drop handling
-    dropzone.addEventListener('click', () => photosInput.click());
-    ['dragenter','dragover'].forEach(evt => dropzone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropzone.classList.add('dragover'); }));
-    ['dragleave','drop'].forEach(evt => dropzone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropzone.classList.remove('dragover'); }));
-    dropzone.addEventListener('drop', e => {
-      const files = Array.from(e.dataTransfer.files || []);
-      if (!files.length) return;
-      const dt = new DataTransfer();
-      const current = Array.from(photosInput.files);
-      [...current, ...files].slice(0,8).forEach(f => dt.items.add(f));
-      photosInput.files = dt.files;
-      renderPreviews();
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ----- Drag & drop handling -----
+  dropzone.addEventListener('click', () => photosInput.click());
+  ['dragenter','dragover'].forEach(evt =>
+    dropzone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropzone.classList.add('dragover'); })
+  );
+  ['dragleave','drop'].forEach(evt =>
+    dropzone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropzone.classList.remove('dragover'); })
+  );
+  dropzone.addEventListener('drop', e => {
+    const files = Array.from(e.dataTransfer.files || []);
+    if (!files.length) return;
+    const dt = new DataTransfer();
+    const current = Array.from(photosInput.files);
+    [...current, ...files].slice(0,8).forEach(f => dt.items.add(f));
+    photosInput.files = dt.files;
+    renderPreviews();
+  });
+
+  photosInput.addEventListener('change', renderPreviews);
+
+  function renderPreviews() {
+    preview.innerHTML = '';
+    const files = Array.from(photosInput.files);
+    const maxFiles = 8, maxMB = 10;
+    let valid = true;
+    files.slice(0,maxFiles).forEach((file, i) => {
+      if (file.size > maxMB * 1024 * 1024) valid = false;
+      const url = URL.createObjectURL(file);
+      const tile = document.createElement('div');
+      tile.className = 'relative rounded-xl overflow-hidden border border-slate-200';
+      tile.innerHTML = `<img class="w-full h-28 object-cover" src="${url}" alt="Upload ${i+1}">`;
+      preview.appendChild(tile);
     });
+    if (!valid) showAlert('One or more images exceed 10MB. Please compress and try again.', 'error');
+  }
 
-    photosInput.addEventListener('change', renderPreviews);
+  // ----- Form submission -----
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (form.company && form.company.value) return; // honeypot
 
-    function renderPreviews(){
-      preview.innerHTML = '';
-      const files = Array.from(photosInput.files);
-      const maxFiles = 8; const maxMB = 10;
-      let valid = true;
-      files.slice(0,maxFiles).forEach((file, idx) => {
-        if (file.size > maxMB * 1024 * 1024) valid = false;
-        const url = URL.createObjectURL(file);
-        const tile = document.createElement('div');
-        tile.className = 'relative rounded-xl overflow-hidden border border-slate-200';
-        tile.innerHTML = `<img class="w-full h-28 object-cover" src="${url}" alt="Upload ${idx+1}">`;
-        preview.appendChild(tile);
-      });
-      if (!valid) showAlert('One or more images exceed 10MB. Please compress and try again.', 'error');
+    const required = ['name','email','phone','address','description'];
+    for (const key of required) {
+      const el = form.elements[key];
+      if (!el || !el.value.trim()) {
+        showAlert('Please complete all required fields.', 'error');
+        return;
+      }
+    }
+    if (!document.getElementById('consent').checked) {
+      showAlert('Please check the box to continue.', 'error');
+      return;
     }
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    note.textContent = 'Submitting…';
+    const fd = new FormData(form);
+    fd.append('_subject', 'New Junk Removal Quote Request');
 
-      // Honeypot check
-      if (form.company && form.company.value) return;
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: 'POST',
+        body: fd,
+        headers: { 'Accept': 'application/json' }
+      });
 
-      const required = ['name','email','phone','address','description'];
-      for (const key of required) {
-        const el = form.elements[key];
-        if (!el || !el.value.trim()) {
-          showAlert('Please complete all required fields.', 'error');
-          return;
-        }
-      }
-      const consent = document.getElementById('consent');
-      if (!consent.checked) {
-        showAlert('Please check the box to continue.', 'error');
+      if (!res.ok) {
+        const text = await res.text().catch(() => '');
+        showAlert('Submission failed. ' + (text || 'Check endpoint and field names.'), 'error');
+        note.textContent = 'Average reply time: under 24 hours';
         return;
       }
 
-      note.textContent = 'Submitting…';
-
-      const fd = new FormData(form);
-      fd.append('_subject', 'New Junk Removal Quote Request');
-
-      try {
-        if (!ENDPOINT) {
-          // Demo mode
-          await new Promise(r => setTimeout(r, 600));
-          showAlert('Submitted! We\'ll be in touch within 24 hours. (Demo mode—connect a real endpoint.)', 'success');
-          form.reset(); preview.innerHTML = ''; note.textContent = 'Average reply time: under 24 hours';
-          return;
-        }
-        const res = await fetch(ENDPOINT, {
-  method: 'POST',
-  body: fd,
-  headers: { 'Accept': 'application/json' }
-});
-
-        if (!res.ok) throw new Error('Network error');
-        showAlert('Thanks! Your request has been received. We\'ll reply within 24 hours.', 'success');
-        form.reset(); preview.innerHTML = ''; note.textContent = 'Average reply time: under 24 hours';
-      } catch(err){
-        showAlert('Something went wrong. Please try again or call us directly.', 'error');
-        note.textContent = 'Average reply time: under 24 hours';
-      }
-    });
-
-    function showAlert(msg, type='info'){
-      alertBox.classList.remove('hidden');
-      alertBox.textContent = msg;
-      alertBox.className = 'mt-4 p-3 rounded-xl text-sm ' + (type==='success' ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : type==='error' ? 'bg-rose-50 text-rose-700 border border-rose-200' : 'bg-slate-50 text-slate-700 border border-slate-200');
+      showAlert('Thanks! Your request has been received. We\'ll reply within 24 hours.', 'success');
+      form.reset();
+      preview.innerHTML = '';
+      note.textContent = 'Average reply time: under 24 hours';
+    } catch {
+      showAlert('Network or CORS error. Confirm HTTPS and endpoint.', 'error');
+      note.textContent = 'Average reply time: under 24 hours';
     }
-  </script>
+  });
+
+  function showAlert(msg, type='info') {
+    alertBox.classList.remove('hidden');
+    alertBox.textContent = msg;
+    alertBox.className =
+      'mt-4 p-3 rounded-xl text-sm ' +
+      (type==='success'
+        ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+        : type==='error'
+        ? 'bg-rose-50 text-rose-700 border border-rose-200'
+        : 'bg-slate-50 text-slate-700 border border-slate-200');
+  }
+</script>
 </body>
 </html>
+
 
 
