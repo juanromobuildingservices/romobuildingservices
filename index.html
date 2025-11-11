@@ -62,73 +62,225 @@
         <p class="text-slate-600 mt-1">We’ll review your details and reply within 24 hours.</p>
 
         <!-- Direct POST to Formspree -->
-        <form
-          id="quote-form"
-          action="https://formspree.io/f/mvgdpbpd"
-          method="POST"
-          enctype="multipart/form-data"
-          class="mt-8 grid gap-6"
-        >
-          <!-- Contact Info -->
-          <div class="grid sm:grid-cols-3 gap-4">
-            <div class="col-span-1">
-              <label class="block text-sm font-medium">Full Name</label>
-              <input name="name" required class="mt-2 w-full rounded-xl border-slate-300 focus:border-teal-600 focus:ring-teal-600" placeholder="Jane Doe" />
-            </div>
-            <div>
-              <label class="block text-sm font-medium">Email</label>
-              <input name="email" type="email" required class="mt-2 w-full rounded-xl border-slate-300 focus:border-teal-600 focus:ring-teal-600" placeholder="you@example.com" />
-            </div>
-            <div>
-              <label class="block text-sm font-medium">Phone</label>
-              <input name="phone" type="tel" required class="mt-2 w-full rounded-xl border-slate-300 focus:border-teal-600 focus:ring-teal-600" placeholder="(555) 555-5555" />
-            </div>
+       <form
+  action="https://formspree.io/f/{FORM_ID}"
+  class="fs-form fs-layout__2-column"
+  target="_top"
+  method="POST"
+>
+  <fieldset>
+    <legend class="fs-fieldset-title">Requester Information</legend>
+    <div class="fs-field">
+      <label class="fs-label" for="requestor-name">Requestor Name</label>
+      <input
+        class="fs-input"
+        id="requestor-name"
+        name="requestor-name"
+        placeholder="Enter your full name"
+        required
+      />
+    </div>
+    <div class="fs-field">
+      <label class="fs-label" for="email-address">Email Address</label>
+      <input
+        class="fs-input"
+        id="email-address"
+        name="email-address"
+        placeholder="Enter your email address"
+        required
+      />
+    </div>
+    <div class="fs-field">
+      <label class="fs-label" for="phone-number">Phone Number</label>
+      <input
+        class="fs-input"
+        id="phone-number"
+        name="phone-number"
+        placeholder="Enter your phone number"
+        required
+      />
+    </div>
+    <div class="fs-field">
+      <label class="fs-label" for="unit-number">Location / Unit Number</label>
+      <input
+        class="fs-input"
+        id="unit-number"
+        name="unit-number"
+        placeholder="Enter your location or unit number"
+        required
+      />
+    </div>
+    <div class="fs-field">
+      <label class="fs-label" for="date-of-request">Date of Request</label>
+      <input
+        class="fs-input"
+        id="date-of-request"
+        name="date-of-request"
+        placeholder="MM/DD/YYYY"
+        required
+      />
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend class="fs-fieldset-title">Maintenance Issue Details</legend>
+    <div class="fs-field col-span-full">
+      <label class="fs-label" for="maintenance-type">
+        Type of Maintenance Issue
+      </label>
+      <select
+        class="fs-select"
+        id="maintenance-type"
+        name="maintenance-type"
+        required
+      >
+        <option value="plumbing">Plumbing</option>
+        <option value="electrical">Electrical</option>
+        <option value="hvac">HVAC</option>
+        <option value="appliance">Appliance</option>
+        <option value="general-repair">General Repair</option>
+      </select>
+    </div>
+    <div class="fs-field col-span-full">
+      <label class="fs-label" for="problem-description">
+        Description of the Problem
+      </label>
+      <textarea
+        class="fs-textarea"
+        id="problem-description"
+        name="problem-description"
+        placeholder="Describe the issue in detail"
+        required
+      ></textarea>
+    </div>
+    <div class="fs-field">
+      <label class="fs-label" for="urgency-level">Urgency Level</label>
+      <select
+        class="fs-select"
+        id="urgency-level"
+        name="urgency-level"
+        required
+      >
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+        <option value="emergency">Emergency</option>
+      </select>
+    </div>
+    <div class="fs-field">
+      <label class="fs-label" for="preferred-visit-time">
+        Preferred Time for Service Visit
+      </label>
+      <input
+        class="fs-input"
+        id="preferred-visit-time"
+        name="preferred-visit-time"
+        placeholder="MM/DD/YYYY HH:MM AM/PM"
+      />
+    </div>
+    <div class="fs-field">
+      <label class="fs-label">
+        Is This Issue Impacting Safety or Security?
+      </label>
+      <div class="fs-radio-group">
+        <div class="fs-radio-field">
+          <div class="fs-radio-wrapper">
+            <input
+              class="fs-radio"
+              id="safety-security-impact-yes"
+              name="safety-security-impact"
+              required
+              type="radio"
+              value="yes"
+            />
           </div>
-
-          <!-- Job Details -->
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-sm font-medium">Service Address</label>
-              <input name="address" required class="mt-2 w-full rounded-xl border-slate-300 focus:border-teal-600 focus:ring-teal-600" placeholder="123 Main St, City, ST" />
-            </div>
-            <div>
-              <label class="block text-sm font-medium">Preferred Service Date</label>
-              <input name="preferred_date" type="date" class="mt-2 w-full rounded-xl border-slate-300 focus:border-teal-600 focus:ring-teal-600" />
-            </div>
-          </div>
-
           <div>
-            <label class="block text-sm font-medium">Describe what needs to go</label>
-            <textarea name="description" rows="4" required class="mt-2 w-full rounded-xl border-slate-300 focus:border-teal-600 focus:ring-teal-600" placeholder="e.g., old couch, construction debris, yard waste. Any stairs or access notes?"></textarea>
+            <label class="fs-label" for="safety-security-impact-yes">Yes</label>
           </div>
-
-          <!-- Photos -->
+        </div>
+        <div class="fs-radio-field">
+          <div class="fs-radio-wrapper">
+            <input
+              class="fs-radio"
+              id="safety-security-impact-no"
+              name="safety-security-impact"
+              required
+              type="radio"
+              value="no"
+            />
+          </div>
           <div>
-            <label class="block text-sm font-medium">Upload Photos (up to 8 images, 10MB each)</label>
-            <div id="dropzone" class="dropzone mt-2 flex flex-col items-center justify-center gap-2 border-2 border-dashed border-slate-300 rounded-2xl p-8 text-center cursor-pointer">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 16.5V8.25A2.25 2.25 0 015.25 6h8.25M3 16.5A2.25 2.25 0 005.25 18.75H15M3 16.5l3-3m0 0l3 3m-3-3v9M21 8.25v7.5A2.25 2.25 0 0118.75 18H15"/></svg>
-              <p class="text-sm text-slate-600">Drag & drop or click to select</p>
-              <input id="photos" name="upload" type="file" accept="image/*" multiple class="hidden" />
-            </div>
-            <div id="preview" class="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-3"></div>
-            <p class="mt-2 text-xs text-slate-500">Tip: Add multiple angles for the most accurate estimate.</p>
+            <label class="fs-label" for="safety-security-impact-no">No</label>
           </div>
-
-          <!-- Consent -->
-          <div class="flex items-start gap-3">
-            <input id="consent" type="checkbox" required class="mt-1 rounded border-slate-300 text-teal-700 focus:ring-teal-600" />
-            <label for="consent" class="text-sm text-slate-700">I understand Romo Building Services will contact me within 24 hours.</label>
+        </div>
+      </div>
+    </div>
+    <div class="fs-field">
+      <label class="fs-label">Permission to Enter Unit (if not home)?</label>
+      <div class="fs-radio-group">
+        <div class="fs-radio-field">
+          <div class="fs-radio-wrapper">
+            <input
+              class="fs-radio"
+              id="entry-permission-yes"
+              name="entry-permission"
+              required
+              type="radio"
+              value="yes"
+            />
           </div>
-
-          <input type="hidden" name="_subject" value="New Junk Removal Quote Request" />
-
-          <div class="flex flex-col sm:flex-row items-center gap-4">
-            <button type="submit" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-medium">
-              <span>Submit Request</span>
-            </button>
-            <p id="form-note" class="text-sm text-slate-500">Average reply time: under 24 hours</p>
+          <div>
+            <label class="fs-label" for="entry-permission-yes">Yes</label>
           </div>
-        </form>
+        </div>
+        <div class="fs-radio-field">
+          <div class="fs-radio-wrapper">
+            <input
+              class="fs-radio"
+              id="entry-permission-no"
+              name="entry-permission"
+              required
+              type="radio"
+              value="no"
+            />
+          </div>
+          <div>
+            <label class="fs-label" for="entry-permission-no">No</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fs-field col-span-full">
+      <label class="fs-label" for="additional-notes">
+        Additional Notes or Special Instructions
+      </label>
+      <textarea
+        class="fs-textarea"
+        id="additional-notes"
+        name="additional-notes"
+        placeholder="Add any special instructions or comments"
+      ></textarea>
+    </div>
+    <div class="fs-checkbox-field col-span-full">
+      <div class="fs-checkbox-wrapper">
+        <input
+          class="fs-checkbox"
+          id="follow-up-request"
+          name="follow-up-request"
+          type="checkbox"
+          value="yes"
+        />
+      </div>
+      <div>
+        <label class="fs-label" for="follow-up-request">
+          Would You Like a Follow-Up After Completion?
+        </label>
+      </div>
+    </div>
+  </fieldset>
+  <div class="fs-button-group">
+    <button class="fs-button" type="submit">Submit</button>
+  </div>
+</form>
 
         <div id="form-alert" class="hidden mt-4 p-3 rounded-xl text-sm"></div>
 
@@ -188,3 +340,4 @@
   </script>
 </body>
 </html>
+
